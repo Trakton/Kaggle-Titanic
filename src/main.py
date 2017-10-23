@@ -7,7 +7,6 @@ import random as rnd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
 # machine learning
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC, LinearSVC
@@ -125,3 +124,16 @@ for dataset in combine:
 
 train_df = train_df.drop(['FareBand'], axis=1)
 combine = [train_df, test_df]
+
+#Separating sets for training models
+X_train = train_df.drop("Survived", axis=1)
+Y_train = train_df["Survived"]
+X_test  = test_df.drop("PassengerId", axis=1).copy()
+
+#Training with Random Forest Classifier
+random_forest = RandomForestClassifier(n_estimators=100)
+random_forest.fit(X_train, Y_train)
+Y_pred = random_forest.predict(X_test)
+random_forest.score(X_train, Y_train)
+acc_random_forest = round(random_forest.score(X_train, Y_train) * 100, 2)
+print(acc_random_forest)
