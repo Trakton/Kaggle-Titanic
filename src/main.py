@@ -137,3 +137,11 @@ Y_pred = random_forest.predict(X_test)
 random_forest.score(X_train, Y_train)
 acc_random_forest = round(random_forest.score(X_train, Y_train) * 100, 2)
 print(acc_random_forest)
+
+#Creating kaggle submission
+submission = pd.DataFrame({
+        "PassengerId": test_df["PassengerId"],
+        "Survived": Y_pred
+})
+
+submission.to_csv('output/submission.csv', index=False)
